@@ -69,4 +69,4 @@ joinedCountries %>%
        y = "Life Expectancy (age) ")
 ```
 
-![](Figs/unnamed-chunk-3-1.png) \`\`\`
+![](Figs/unnamed-chunk-3-1.png)

@@ -59,4 +59,3 @@ joinedCountries %>%
        x = "Population Density (Millions per Square Kilometer)",
        y = "Life Expectancy (age) ")
 ```
-```

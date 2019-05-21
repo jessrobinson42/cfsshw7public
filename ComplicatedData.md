@@ -15,7 +15,6 @@ library(readr)
 library(here)
 library(rvest)
 library(knitr)
-library(reshape)
 
 set.seed(1234)
 theme_set(theme_minimal())
@@ -100,19 +99,23 @@ Explore Data
 ------------
 
 ``` r
+prisontable<- prisontable %>%
+  mutate(prisonpop = `Prison Population Total`/1000)
+```
+
+``` r
 prisontable %>%
-  ggplot(mapping = aes(x = `Title`, y = `Prison Population Total`, fill = `Title`)) +
+  ggplot(mapping = aes(x = Title, y = prisonpop, fill = Title)) +
   geom_col() + 
   coord_flip() +
   theme(legend.position="none") + 
   labs(title = "European Prison Population by Country",
        x = "Country",
-       y = "Prison Population",
+       y = "Prison Population (in Thousands)",
        caption = "Source: World Prison Brief"
   )
 ```
 
 ![](Figs/unnamed-chunk-3-1.png)
 
-Anaylzing Data
-==============
+The above chart shows the prison population in European Countries from *World Prison Brief*.
