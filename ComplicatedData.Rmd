@@ -6,7 +6,7 @@ output: github_document
 ---
 
 ```{r global_options}
-knitr::opts_chunk$set(fig.width=8, fig.height=6, fig.path='Figs/',
+knitr::opts_chunk$set(fig.width=8, fig.height=6, fig.path='Figs2/',
                       warning=FALSE, message=FALSE)
 ```
 

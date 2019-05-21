@@ -4,7 +4,7 @@ Jess Robinson
 May 20, 2019
 
 ``` r
-knitr::opts_chunk$set(fig.width=8, fig.height=6, fig.path='Figs/',
+knitr::opts_chunk$set(fig.width=8, fig.height=6, fig.path='Figs2/',
                       warning=FALSE, message=FALSE)
 ```
 
@@ -116,6 +116,6 @@ prisontable %>%
   )
 ```
 
-![](Figs/unnamed-chunk-3-1.png)
+![](Figs2/unnamed-chunk-3-1.png)
 
 The above chart shows the prison population in European Countries from *World Prison Brief*.
