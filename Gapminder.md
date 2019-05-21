@@ -1,0 +1,72 @@
+Gapminder Revisted
+================
+Jess Robinson
+May 20, 2019
+
+``` r
+knitr::opts_chunk$set(fig.width=8, fig.height=6, fig.path='Figs/',
+                       warning=FALSE, message=FALSE)
+```
+
+``` r
+#load libraries
+library(tidyverse)
+library(readr)
+library(geonames)
+library(gapminder)
+library(here)
+library(countrycode)
+
+set.seed(1234)
+theme_set(theme_minimal())
+```
+
+Load and Merge Data
+-------------------
+
+``` r
+#load  data
+getOption("jessrobinson42")
+```
+
+    ## NULL
+
+``` r
+countryInfo <- GNcountryInfo()
+
+#change country name
+countryInfo <- countryInfo %>%
+  mutate(country = countrycode(countryInfo$countryCode, "iso2c", "country.name"))
+
+#merge data
+joinedCountries <- gapminder %>%
+  left_join(countryInfo, by = "country")
+```
+
+Calculate Population Density
+----------------------------
+
+``` r
+#make area numeric
+joinedCountries$areaInSqKm <- as.numeric(joinedCountries$areaInSqKm)
+joinedCountries$pop <- as.numeric(joinedCountries$pop)
+
+#calculate population density
+joinedCountries <- joinedCountries %>%
+  mutate(popDensity = pop / areaInSqKm)
+```
+
+Population Density Graph
+------------------------
+
+``` r
+#plot pop density
+joinedCountries %>%
+ ggplot(mapping = aes(x = popDensity, y = lifeExp)) +
+  geom_point(alpha = 0.2) + 
+  labs(title = "Life Expectancy by Population Density",
+       x = "Population Density (Millions per Square Kilometer)",
+       y = "Life Expectancy (age) ")
+```
+
+![](Figs/unnamed-chunk-3-1.png) \`\`\`

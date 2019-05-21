@@ -1,0 +1,58 @@
+---
+title: "Complicated Data"
+author: "Jess Robinson"
+date: "May 20, 2019"
+output: github_document
+---
+
+```{r global_options}
+knitr::opts_chunk$set(fig.width=8, fig.height=6, fig.path='Figs/',
+                      warning=FALSE, message=FALSE)
+```
+
+```{r setup}
+#load libraries
+library(tidyverse)
+library(readr)
+library(here)
+library(rvest)
+library(knitr)
+
+set.seed(1234)
+theme_set(theme_minimal())
+```
+
+##Load Data 
+```{r}
+prisondata <- read_html("http://www.prisonstudies.org/highest-to-lowest/prison-population-total?field_region_taxonomy_tid=14")
+
+tables <- html_nodes(prisondata, css = "table")
+
+prisontable <- tables %>%
+  nth(1) %>%
+  html_table(header = TRUE)
+
+kable(prisontable)
+```
+
+
+##Explore Data 
+```{r}
+prisontable<- prisontable %>%
+  mutate(prisonpop = `Prison Population Total`/1000)
+```
+
+```{r}
+prisontable %>%
+  ggplot(mapping = aes(x = Title, y = prisonpop, fill = Title)) +
+  geom_col() + 
+  coord_flip() +
+  theme(legend.position="none") + 
+  labs(title = "European Prison Population by Country",
+       x = "Country",
+       y = "Prison Population (in Thousands)",
+       caption = "Source: World Prison Brief"
+  )
+```
+
+The above chart shows the prison population in European Countries in the year 
